@@ -1,0 +1,229 @@
+/* Оформление диалогового окна демонстрации.
+ *
+ * Отдельный файл, а не дописывание app.css: стили интерфейса
+ * продукта копируются в сайт как есть, и дописывать туда демо-специфичные
+ * правила нельзя — при следующей сборке они потерялись бы молча.
+ *
+ * Токены общие с app.css (дизайн-система LawLink): волосяные границы,
+ * чернильная подложка реплики системы, navy — реплика пользователя.
+ */
+
+.chat-page {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 20px;
+  align-items: start;
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+
+/* Заголовки боковой колонки — как и в продукте: микро-капс, faint. */
+.chat-side h2 {
+  font-size: 11px;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--faint);
+  margin: 0 0 8px;
+}
+
+.chat-case {
+  margin: 0 0 4px;
+  font-size: 14px;
+}
+
+.chat-suggest {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.chat-chip {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.35;
+  padding: 8px 10px;
+  border: 1px solid var(--bd-default);
+  border-radius: var(--r-md);
+  background: var(--bg-card);
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: var(--sh-card);
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.chat-chip:hover {
+  border-color: var(--teal);
+  color: var(--teal-deep);
+  background: var(--teal-soft);
+}
+
+.chat-window {
+  background: var(--bg-card);
+  border: 1px solid var(--bd-hair);
+  border-radius: var(--r-lg);
+  display: flex;
+  flex-direction: column;
+  min-height: 560px;
+  overflow: hidden;
+  box-shadow: var(--sh-card);
+}
+
+.chat-log {
+  flex: 1;
+  overflow-y: auto;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--bg-canvas);
+}
+
+.bubble {
+  max-width: 84%;
+}
+
+.bubble-user {
+  align-self: flex-end;
+}
+
+.bubble-body {
+  padding: 11px 14px;
+  border-radius: var(--r-lg);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+/* Система отвечает карточкой на светлом холсте. */
+.bubble-system .bubble-body {
+  background: var(--bg-card);
+  border: 1px solid var(--bd-hair);
+  border-top-left-radius: 3px;
+  box-shadow: var(--sh-card);
+}
+
+/* Реплика пользователя — чернильный navy (тёмный цвет LawLink). */
+.bubble-user .bubble-body {
+  background: var(--navy);
+  color: #fff;
+  border-top-right-radius: 3px;
+}
+
+.bubble-body p {
+  margin: 0 0 8px;
+}
+
+.bubble-body p:last-child {
+  margin-bottom: 0;
+}
+
+.bubble-body ul {
+  margin: 6px 0 8px;
+  padding-left: 20px;
+}
+
+.bubble-body li {
+  margin-bottom: 4px;
+}
+
+.bubble-body blockquote {
+  margin: 8px 0;
+  padding: 10px 14px;
+  background: var(--bg-sunken);
+  border-left: 3px solid var(--bd-strong);
+  white-space: pre-wrap;
+  font-size: 13.5px;
+}
+
+.cite {
+  color: var(--muted);
+  font-size: 12.5px;
+  font-style: italic;
+}
+
+.sev {
+  font-size: 11.5px;
+  letter-spacing: 0.4px;
+}
+
+/* Цвета важности — та же дисциплина, что в проекте решения:
+ * красный — риск, янтарь — проверить, остальное — справочно. */
+.sev-CRITICAL,
+.sev-HIGH {
+  color: var(--red);
+}
+
+.sev-MEDIUM {
+  color: var(--amber);
+}
+
+.sev-LOW {
+  color: var(--muted);
+}
+
+.chat-input {
+  display: flex;
+  gap: 10px;
+  padding: 12px 14px;
+  border-top: 1px solid var(--bd-hair);
+  background: var(--bg-card);
+}
+
+.chat-input input {
+  flex: 1;
+  font: inherit;
+  font-size: 14px;
+  padding: 10px 12px;
+  border: 1px solid var(--bd-default);
+  border-radius: var(--r-md);
+  background: var(--bg-card);
+  color: var(--ink);
+  box-shadow: inset 0 1px 2px rgba(12, 25, 39, 0.05);
+}
+
+.chat-input input:focus {
+  outline: none;
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(0, 123, 127, 0.12);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 900px) {
+  .chat-page {
+    grid-template-columns: 1fr;
+  }
+
+  .bubble {
+    max-width: 96%;
+  }
+}
+
+/* Выбор дела в демонстрации по десяти реальным делам. */
+.case-select {
+  width: 100%;
+  font: inherit;
+  font-size: 13.5px;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  border: 1px solid var(--bd-default);
+  border-radius: var(--r-md);
+  background: var(--bg-card);
+  color: var(--ink);
+}
